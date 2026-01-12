@@ -1,4 +1,4 @@
-TARGETS=recordfile
+TARGETS=getsize
 
 .PHONY: all clean
 

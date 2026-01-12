@@ -1,1 +1,0 @@
-for i in $(seq 0 9); do ./recordfile read $i; done
