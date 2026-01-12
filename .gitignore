@@ -52,3 +52,10 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# ----
+project1-1/helloworld
+project1-1/mycat
+project1-1/printcl
+project1-1/readfile
+project1-1/yell
