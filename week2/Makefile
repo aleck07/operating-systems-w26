@@ -1,11 +1,16 @@
-TARGETS=mymkdir
+CC=gcc
+CCOPTS=-Wall -Wextra
+LIBS=
+
+SRCS=$(wildcard *.c)
+TARGETS=$(SRCS:.c=)
 
 .PHONY: all clean
 
 all: $(TARGETS)
 
-recordfile: recordfile.c
-	gcc -Wall -Wextra -o $@ $^
-
 clean:
 	rm -f $(TARGETS)
+
+%: %.c
+	$(CC) $(CCOPTS) -o $@ $< $(LIBS)
