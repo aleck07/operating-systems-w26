@@ -1,4 +1,4 @@
-TARGETS=getsize
+TARGETS=mymkdir
 
 .PHONY: all clean
 
