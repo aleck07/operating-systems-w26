@@ -4,12 +4,7 @@
 #include <dirent.h>
 #include <string.h>
 
-ssize_t getFileSize(char *file){
-    struct stat buf;
-    stat(file, &buf);
-    return(buf.st_size);
-}
-
+// Creates full file path for file
 void buildPath(char *dest, char *dirPath, struct dirent *dir){
     sprintf(dest, "%s/%s", dirPath, dir->d_name);
 }
@@ -33,6 +28,7 @@ ssize_t readDirectory(char *dirPath){
             continue;
         }
 
+        // Checks to see if the file is a directory or file, then adds the byte total of the file or dives deeper
         if(S_ISREG(statbuf.st_mode)){
             byteTotal += statbuf.st_size;
         }
