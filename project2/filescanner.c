@@ -15,7 +15,6 @@ ssize_t readDirectory(char *dirPath){
 
     ssize_t byteTotal = 0;
     fd = opendir(dirPath);
-    dir = readdir(fd);
 
     while((dir = readdir(fd)) != NULL){
         char fullPath[256];
@@ -48,5 +47,4 @@ int main(int argc, char *argv[]){
         return 1;
     }
     readDirectory(argv[1]);
-
 }
