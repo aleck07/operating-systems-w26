@@ -6,7 +6,12 @@
 
 // Creates full file path for file
 void buildPath(char *dest, char *dirPath, struct dirent *dir){
-    snprintf(dest, 256, "%s/%s", dirPath, dir->d_name);
+    size_t len = strlen(dirPath);
+    if(len > 0 && dirPath[len - 1] == '/'){
+        snprintf(dest, 512, "%s%s", dirPath, dir->d_name);
+    } else {
+        snprintf(dest, 512, "%s/%s", dirPath, dir->d_name);
+    }
 }
 
 ssize_t readDirectory(char *dirPath){
@@ -23,18 +28,18 @@ ssize_t readDirectory(char *dirPath){
     }
 
     while((dir = readdir(fd)) != NULL){
-        char fullPath[256];
+        char fullPath[512];
         buildPath(fullPath, dirPath, dir);
         struct stat statbuf;
         
         // Get the file information of the path, and error check it.
-        if(stat(fullPath, &statbuf) == -1) {
-            perror("stat");
+        if(lstat(fullPath, &statbuf) == -1) {
+            perror("lstat");
             continue;
         }
         
-        // Ignores . and .. but also hidden files :( 
-        if(dir->d_name[0] == '.'){
+        // Ignores . and ..
+        if(strcmp(dir->d_name, ".") == 0 || strcmp(dir->d_name, "..") == 0){
             continue;
         }
 
@@ -51,10 +56,11 @@ ssize_t readDirectory(char *dirPath){
 }
 
 int main(int argc, char *argv[]){
-    if(argc != 2){
+    if(argc > 2){
         fprintf(stderr, "usage: filescanner [directory]\n");
         return 1;
     }
-    readDirectory(argv[1]);
+    char *directory = argc == 2 ? argv[1] : ".";
+    readDirectory(directory);
     return 0;
 }
