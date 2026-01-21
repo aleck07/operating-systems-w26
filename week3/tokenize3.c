@@ -18,3 +18,5 @@ int main(void)
     for (int i = 0; tokens[i] != NULL; i++)
         printf("%d: %s\n", i, tokens[i]);
 }
+
+// If we didn't initialize the whole array full of null terminators, the program will keep on tokenizing after our last word we typed in.
