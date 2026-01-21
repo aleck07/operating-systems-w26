@@ -4,13 +4,15 @@
 #include <dirent.h>
 #include <string.h>
 
+#define MAX_BYTES 512
+
 // Creates full file path for file
 void buildPath(char *dest, char *dirPath, struct dirent *dir){
     size_t len = strlen(dirPath);
     if(len > 0 && dirPath[len - 1] == '/'){
-        snprintf(dest, 512, "%s%s", dirPath, dir->d_name);
+        snprintf(dest, MAX_BYTES, "%s%s", dirPath, dir->d_name);
     } else {
-        snprintf(dest, 512, "%s/%s", dirPath, dir->d_name);
+        snprintf(dest, MAX_BYTES, "%s/%s", dirPath, dir->d_name);
     }
 }
 
@@ -28,7 +30,7 @@ ssize_t readDirectory(char *dirPath){
     }
 
     while((dir = readdir(fd)) != NULL){
-        char fullPath[512];
+        char fullPath[MAX_BYTES];
         buildPath(fullPath, dirPath, dir);
         struct stat statbuf;
         
