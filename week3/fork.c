@@ -1,11 +1,18 @@
 #include <stdio.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 int main(void)
 {
     printf("And...\n");
 
-    fork();
+    pid_t pid = fork();
 
-    printf("here we go!\n");
+    if(pid == 0){
+        printf("I'm the child\n");
+    } else {
+        printf("I'm the parent\n");
+    }
+    printf("We're done\n");
+
 }
