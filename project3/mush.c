@@ -52,6 +52,8 @@ int main(void){
         // Read user input
         fgets(line, sizeof line, stdin);
 
+        if(feof(stdin)) exit(0);
+
         getTokens(line, tokens);
         if (tokens[0] != NULL) {
             runCommand(tokens);
