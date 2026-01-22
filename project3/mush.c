@@ -8,16 +8,22 @@
 #define MAX_TOKENS 128
 
 void runCommand(char **tokens){
+    // Check if command is 'cd'
+    if(strcmp(tokens[0], "cd") == 0){
+        if(chdir(tokens[1]) == -1) perror("Invalid use: ");
+        return;
+    }
+
     pid_t pid = fork();
+
     // Child process
     if(pid == 0){
         execvp(tokens[0], tokens);
         perror("Invalid command: ");
         exit(1);
-    } else {
-        wait(NULL);
     }
-
+    wait(NULL);
+    
 }
 
 void getTokens(char *line, char **tokens){
@@ -44,7 +50,7 @@ int main(void){
 
         getTokens(line, tokens);
         if (tokens[0] != NULL) {
-            printf("Running command!\n");
+            runCommand(tokens);
         }
     }
 }
