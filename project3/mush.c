@@ -7,6 +7,30 @@
 #define MAX_LINE 2048
 #define MAX_TOKENS 128
 
+void runCommand(char **tokens){
+    pid_t pid = fork();
+    // Child process
+    if(pid == 0){
+        execvp(tokens[0], tokens);
+        perror("Invalid command: ");
+        exit(1);
+    } else {
+        wait(NULL);
+    }
+
+}
+
+void getTokens(char *line, char **tokens){
+    char *token = strtok(line, " \n");
+
+    // Tokenize input line
+    int i = 0;
+    while (token != NULL) {
+        tokens[i++] = token;
+        token = strtok(NULL, " \n");
+    }
+}
+
 int main(void){
     while(1){
         char line[MAX_LINE];
@@ -14,19 +38,13 @@ int main(void){
 
         printf("prompt> ");
         fflush(stdout); // flushes output
-
+        
+        // Read user input
         fgets(line, sizeof line, stdin);
-        char *token = strtok(line, " \n");
 
-        int i = 0;
-        while (token != NULL) {
-            tokens[i++] = token;
-            token = strtok(NULL, " \n");
-        }
-
+        getTokens(line, tokens);
         if (tokens[0] != NULL) {
-            execvp(tokens[0], tokens);
-            perror("Invalid command");
+            printf("Running command!\n");
         }
     }
 }
