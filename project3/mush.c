@@ -13,6 +13,10 @@ void runCommand(char **tokens){
         if(chdir(tokens[1]) == -1) perror("Invalid use: ");
         return;
     }
+    // Check if command is `exit`
+    if(strcmp(tokens[0], "exit") == 0){
+        exit(0);
+    }
 
     pid_t pid = fork();
 
