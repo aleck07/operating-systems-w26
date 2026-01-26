@@ -11,8 +11,9 @@ int main(void){
     // create the pipe
     pipe(pfds); 
 
-    write(pfds[1], "Hello\n", 7); // write to the pipe
-    char buf[7];
-    read(pfds[0], buf, 7);   // read from the pipe
-    write(STDOUT_FILENO, buf, 7); // write to standard output
+    write(pfds[1], "Hello\n", 6); // write to the pipe
+    char buf[6];
+    read(pfds[0], buf, 6);   // read from the pipe
+    write(STDOUT_FILENO, buf, 6); // write to standard output
+    return 0;
 }
