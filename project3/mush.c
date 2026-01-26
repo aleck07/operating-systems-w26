@@ -44,6 +44,7 @@ void getTokens(char *line, char **tokens){
         tokens[i++] = token;
         token = strtok(NULL, " \n");
     }
+    tokens[i] = NULL;
 }
 
 int main(void){
@@ -64,4 +65,5 @@ int main(void){
             runCommand(tokens);
         }
     }
+    return 0;
 }
