@@ -10,6 +10,7 @@
 void runCommand(char **tokens){
     // Check if command is 'cd'
     if(strcmp(tokens[0], "cd") == 0){
+        // Check if a path is provided
         if(tokens[1] == NULL){
             fprintf(stderr, "Invalid use: cd requires a path argument\n");
             return;
