@@ -8,6 +8,11 @@
 #define MAX_TOKENS 128
 
 void runCommand(char **tokens){
+    // Check if command is `exit`
+    if(strcmp(tokens[0], "exit") == 0){
+        exit(0);
+    }
+
     // Check if command is 'cd'
     if(strcmp(tokens[0], "cd") == 0){
         // Check if a path is provided
@@ -17,10 +22,6 @@ void runCommand(char **tokens){
         }
         if(chdir(tokens[1]) == -1) perror("Invalid use: ");
         return;
-    }
-    // Check if command is `exit`
-    if(strcmp(tokens[0], "exit") == 0){
-        exit(0);
     }
 
     pid_t pid = fork();
