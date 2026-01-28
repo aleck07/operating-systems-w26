@@ -74,3 +74,5 @@ project3/mush
 week4/pipetest
 week4/forkpipe
 week4/printffile
+week4/fifo/consumer
+week4/fifo/producer
