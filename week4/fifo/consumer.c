@@ -19,10 +19,12 @@ int main(void)
     printf("Consumer: Reading from FIFO...\n");
     while (1)
     {
-        bytesRead = read(fd, buffer, sizeof(buffer) - 1);
+        bytesRead = read(fd, buffer, sizeof(buffer));
         if (bytesRead > 0)
         {
             printf("Read: '%s'\n", buffer);
+        } else {
+            break;
         }
     }
     close(fd);

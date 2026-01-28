@@ -14,7 +14,8 @@ int main(int argc, char *argv[])
 
     mkfifo(FIFO_NAME, 0644);
     fd = open(FIFO_NAME, O_WRONLY);
-    write(fd, argv[1], strlen(argv[1]));
+    write(fd, argv[1], strlen(argv[1]) + 1);
+    printf("%s" , argv[1]);
     close(fd);
     return 0;
 }
