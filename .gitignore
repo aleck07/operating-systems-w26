@@ -76,3 +76,5 @@ week4/forkpipe
 week4/printffile
 week4/fifo/consumer
 week4/fifo/producer
+week4/fixedFifo/consumer
+week4/fixedFifo/producer
