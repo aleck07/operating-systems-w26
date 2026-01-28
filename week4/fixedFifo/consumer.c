@@ -7,23 +7,30 @@
 #include <stdlib.h>
 
 #define FIFO_NAME "./my_fifo"
+#define MSG_SIZE 16
 
 int main(void)
 {
     int fd;
-    char buffer[128];
-    int count;
+    char buf[MSG_SIZE];
+    ssize_t bytesRead;
 
     mkfifo(FIFO_NAME, 0644);
 
     fd = open(FIFO_NAME, O_RDONLY);
+    printf("waiting for writers...\n");
 
-    read(fd, buffer, sizeof(buffer));
-    count = atoi(&buffer[0]);
-    for (int i = 0; i < count; i++)
+    while (1)
     {
-        read(fd, buffer, sizeof(buffer));
-        printf("%d: Message #%d\n", buffer[0], buffer[0]);
+        bytesRead = read(fd, buf, MSG_SIZE);
+        if (bytesRead > 0)
+        {
+            printf("%d: %s\n", (unsigned char)buf[0], buf + 1);
+        }
+        else
+        {
+            break;
+        }
     }
 
     close(fd);

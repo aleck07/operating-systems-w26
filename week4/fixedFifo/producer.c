@@ -7,12 +7,13 @@
 #include <stdlib.h>
 
 #define FIFO_NAME "./my_fifo"
+#define MSG_SIZE 16
 
 int main(int argc, char *argv[])
 {
     (void)argc;
     int fd;
-    char buf[16];
+    char buf[MSG_SIZE];
     int count = atoi(argv[1]);
 
     if (count < 1 || count > 255)
@@ -23,13 +24,14 @@ int main(int argc, char *argv[])
 
     mkfifo(FIFO_NAME, 0644);
     fd = open(FIFO_NAME, O_WRONLY);
-    printf("Waiting for consumer...\n");
+    printf("waiting for readers...\n");
     for (int i = 0; i < count; i++)
     {
-        buf[0] = i;                        // Set the message number
-        sprintf(buf + 1, "Message %d", i); // Set the message
-        write(fd, buf, strlen(buf) + 1);
-        printf("Sending %d Message %d\n", i, i);
+        memset(buf, 0, MSG_SIZE);
+        buf[0] = i;                         // Set the message number
+        sprintf(buf + 1, "Message #%d", i); // Set the message
+        write(fd, buf, MSG_SIZE);
+        printf("Sending %d Message #%d\n", i, i);
         sleep(1);
     }
     close(fd);
