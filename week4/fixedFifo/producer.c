@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 {
     (void)argc;
     int fd;
-    char buf[MSG_SIZE];
+    char buf[MSG_SIZE] = {0};
     int count = atoi(argv[1]);
 
     if (count < 1 || count > 255)
@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
     printf("waiting for readers...\n");
     for (int i = 0; i < count; i++)
     {
-        memset(buf, 0, MSG_SIZE);
         buf[0] = i;                         // Set the message number
         sprintf(buf + 1, "Message #%d", i); // Set the message
         write(fd, buf, MSG_SIZE);
