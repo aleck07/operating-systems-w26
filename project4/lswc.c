@@ -11,9 +11,13 @@ int main(int argc, char *argv[])
         printf("Invalid usage: lswc [directory]\n");
         exit(1);
     }
-    if (argv == NULL)
-    {
-        argv[1] = ".";
+
+    char *dir;
+    if (argc == 1){
+        dir = ".";
+    }
+    else{
+        dir = argv[1];
     }
 
     int pfds[2];
@@ -31,7 +35,7 @@ int main(int argc, char *argv[])
     }
     close(pfds[0]);
     dup2(pfds[1], STDOUT_FILENO);
-    execlp("ls", "ls", argv[1], "-1a", NULL);
+    execlp("ls", "ls", "-1a", dir, NULL);
 
     wait(NULL);
     return 0;
