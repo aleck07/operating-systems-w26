@@ -7,6 +7,7 @@ int main(int argc, char *argv[])
     if (argc < 3)
     {
         printf("usage: redirout filename command [arg1 [arg2 ... ] ]\n");
+        return 1;
     }
     char *filename = argv[1];
     char *command = argv[2];
