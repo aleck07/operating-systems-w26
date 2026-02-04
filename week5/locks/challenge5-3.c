@@ -63,6 +63,7 @@ int spawn_child(int fd) {
 
                 lock.l_type = F_UNLCK;
                 fcntl(fd, F_SETLKW, &lock);
+                // When there were no locks, if we had more than 1 process it would start creating garbage. Each process was probably trying to read and write at the same time which caused the data to be corrupt.
             }
 
             exit(0);
