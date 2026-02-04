@@ -50,7 +50,6 @@ int spawn_child(int fd) {
         case 0:
             // Child process
             for (int i = 0; i < INCREMENTS; i++) {
-                // TODO Add locking code to prevent concurrency issues
                 struct flock lock = {
                     .l_type = F_WRLCK,
                     .l_whence = SEEK_SET,
