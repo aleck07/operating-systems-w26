@@ -14,6 +14,7 @@
  */
 void add_next_record(int fd, void *data)
 {   
+    // When we aren't using locks, the forks are all trying to read and write to the same memory location at the same time, causing corrupted data.
     struct flock lock = {
         .l_type = F_WRLCK,
         .l_whence = SEEK_SET,
