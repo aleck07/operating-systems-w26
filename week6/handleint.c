@@ -23,7 +23,13 @@ int main(void)
     }
 
     printf("Program will exit in 10 seconds, hit ^C\n");
-    sleep(10);
-
+    int sleep_int = sleep(10);
+    if (sleep_int > 0)
+    {
+        printf("Sleep was interrupted with %d seconds left\n", sleep_int);
+    }
     return 0;
+
+    // When we hit ^C, the signal handler was called which wrote a message to stdout, then closed. But code did run after we send the signal.
+    // The return value of sleep() is the number of seconds left on the sleep.
 }
