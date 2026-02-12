@@ -45,24 +45,24 @@ int main(void)
     printf("Then press RETURN to continue\n");
 
     int pselect_result = pselect(1, &readfds, NULL, NULL, NULL, &zero);
-    if (pselect_result == -1 && errno != EINTR)
+    if (pselect_result == -1 && errno == EINTR)
     {
         if (sigusr1_happened)
         {
             printf("pselect was interrupted by SIGUSR1\n");
         }
-        else
-        {
-            perror("pselect");
-            exit(1);
-        }
+    }
+    else if (pselect_result == -1)
+    {
+        perror("pselect");
+        exit(1);
     }
     if (pselect_result > 0)
     {
         if (FD_ISSET(0, &readfds))
         {
             char buffer[128];
-            ssize_t bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer));
+            ssize_t bytes_read = read(STDIN_FILENO, buffer, sizeof(buffer) - 1);
             if (bytes_read > 0)
             {
                 buffer[bytes_read] = '\0';
