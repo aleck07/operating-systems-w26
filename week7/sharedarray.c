@@ -45,3 +45,5 @@ int main(void)
 
     return 0;
 }
+
+// The reason why the output is not always the same is because of the race condition. When the threads are reading the value of i and incrementing it, they are having to do 7 instructions and with such a large array there will be concurrency issues.
