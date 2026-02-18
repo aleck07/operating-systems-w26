@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include <stdint.h>
 
+#define THREADS 10
+
 void *run(void *args)
 {
     int id = (int)(intptr_t)args;
@@ -12,13 +14,13 @@ void *run(void *args)
 
 int main(void)
 {
-    pthread_t thread[10];
+    pthread_t thread[THREADS];
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < THREADS; i++) {
         pthread_create(thread + i, NULL, run, (void *)(intptr_t)i);
     }
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < THREADS; i++) {
         pthread_join(thread[i], NULL);
     }
 
