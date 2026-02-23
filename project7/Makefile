@@ -1,17 +1,14 @@
 CC=gcc
-CCOPTS=-Wall -Wextra
-LIBS=
-
-SRCS=$(wildcard *.c)
-TARGETS=$(SRCS:.c=)
+CCOPTS=-Wall -Wextra -Werror
+LIBS=-lpthread
 
 .PHONY: all clean
 
-all: $(TARGETS)
+all: grayscaler
+
+grayscaler: grayscaler.c ppm.c ppm.h
+	$(CC) $(CCOPTS) -o grayscaler grayscaler.c ppm.c $(LIBS)
 
 clean:
-	rm -f $(TARGETS)
-
-%: %.c
-	$(CC) $(CCOPTS) -o $@ $< $(LIBS)
+	rm -f grayscaler
     
