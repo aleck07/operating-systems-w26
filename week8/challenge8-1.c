@@ -7,6 +7,9 @@
 int shared_value = 1;
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
+// This problem could occur if we had two threads, but wouldn't if we had one.
+// There would have to be multiple threads that check if the value is greater than 0, then after the second they both decrement the value.
+
 void *run(void *arg)
 {
     (void)arg;
