@@ -16,9 +16,11 @@ void *run1(void *arg)
 
     for (int i = 0; i < ELEMENTS; i++)
     {
+        pthread_mutex_lock(&lock_b);
         pthread_mutex_lock(&lock_a);
         a[i]++;
         pthread_mutex_unlock(&lock_a);
+        pthread_mutex_unlock(&lock_b);
     }
 
     return NULL;
@@ -30,9 +32,11 @@ void *run2(void *arg)
 
     for (int i = 0; i < ELEMENTS; i++)
     {
+        pthread_mutex_lock(&lock_b);
         pthread_mutex_lock(&lock_a);
         a[i]++;
         pthread_mutex_unlock(&lock_a);
+        pthread_mutex_unlock(&lock_b);
     }
 
     return NULL;
