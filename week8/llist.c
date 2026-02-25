@@ -21,10 +21,12 @@ struct node
  */
 void llist_insert(struct node **head, int value)
 {
-    pthread_mutex_lock(&list_lock);
     struct node *n = malloc(sizeof *n);
     n->value = value;
     usleep(1); // IGNORE all usleeps! Leave them in place.
+
+    pthread_mutex_lock(&list_lock);
+
     n->next = *head;
     usleep(1);
     *head = n;
@@ -86,8 +88,10 @@ void llist_append(struct node **head, int value)
  */
 void llist_traverse(struct node *head, void (*f)(struct node *))
 {
+    pthread_mutex_lock(&list_lock);
     for (struct node *p = head; p != NULL; p = p->next)
         f(p);
+    pthread_mutex_unlock(&list_lock);
 }
 
 /**
