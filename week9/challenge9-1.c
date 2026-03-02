@@ -9,6 +9,7 @@ int count = 0;
 void *run1(void *arg)
 {
     (void)arg;
+    sleep(0.1);
     while (count < 5) {
         pthread_mutex_lock(&mutex);
         count++;
