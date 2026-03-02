@@ -28,12 +28,12 @@ void *run2(void *arg)
     // sleep(3);
     // When we add sleep(3), Thread 2 will wait until the count is 4 before printing. Thread 1 signaled thread 2, but thread 2 was still sleeping so it missed those signals. After the sleep was over, it recieved the signal and printed out count is 4 when thread 1 printed count was 4.
 
+    pthread_mutex_lock(&mutex);
     while (count < 5) {
-        pthread_mutex_lock(&mutex);
         pthread_cond_wait(&cond, &mutex);
         printf("Thread 2: count is %d\n", count);
-        pthread_mutex_unlock(&mutex);
     }
+    pthread_mutex_unlock(&mutex);
     return NULL;
 }
 
