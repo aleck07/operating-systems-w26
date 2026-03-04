@@ -41,6 +41,7 @@ void *run(void *arg)
 
 int main(void)
 {
+    // We change the value below to three to get three threads running at the same time. The integer value represents the amount of resources available.
     sem = sem_open_temp("alec_phore", 3);
 
     // Do not modify code between these marks vvv
